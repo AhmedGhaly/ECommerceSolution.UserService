@@ -1,4 +1,5 @@
 using Ecommerce.Core;
+using ECommerce.Api.Middlewares;
 using ECommerce.Infrastructure;
 
 namespace ECommerce.Api
@@ -20,6 +21,8 @@ namespace ECommerce.Api
             builder.Services.AddControllers();
 
             var app = builder.Build();
+            app.UseExceptionHandlingMiddleware();
+
 
             app.UseRouting();
             app.UseAuthorization();

@@ -1,6 +1,7 @@
 using Ecommerce.Core;
 using ECommerce.Api.Middlewares;
 using ECommerce.Infrastructure;
+using System.Text.Json.Serialization;
 
 namespace ECommerce.Api
 {
@@ -18,7 +19,7 @@ namespace ECommerce.Api
             builder.Services.AddCore();
 
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers().AddJsonOptions(op => op.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
             var app = builder.Build();
             app.UseExceptionHandlingMiddleware();

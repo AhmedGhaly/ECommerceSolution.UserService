@@ -11,7 +11,7 @@ namespace Ecommerce.Core
     {
         public static IServiceCollection AddCore(this IServiceCollection services) {
 
-            services.AddSingleton<IUserService, UserService>();
+            services.AddScoped<IUserService, UserService>();
             return services;
         }
     }

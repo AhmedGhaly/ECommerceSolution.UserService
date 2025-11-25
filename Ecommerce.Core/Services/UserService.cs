@@ -45,7 +45,7 @@ namespace Ecommerce.Core.Services
                 user.Id,
                 registerRequest.Name,
                 registerRequest.Email,
-               GenderOptions.Male.ToString(),
+               registerRequest.Gender.ToString(),
                 "token",
                  true
             );

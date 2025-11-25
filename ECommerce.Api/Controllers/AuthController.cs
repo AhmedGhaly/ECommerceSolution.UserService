@@ -37,7 +37,7 @@ namespace ECommerce.Api.Controllers
         public async Task<IActionResult> Login(Ecommerce.Core.Dto.LoginRequest loginRequest)
         {
 
-            if (loginRequest == null)
+            if (loginRequest.Email == null || loginRequest.Password == null)
                 return BadRequest("invlaid input");
             AuthenticationResponse? response = await userService.Login(loginRequest);
 

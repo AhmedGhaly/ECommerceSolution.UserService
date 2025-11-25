@@ -5,6 +5,6 @@ using System.Text;
 namespace Ecommerce.Core.Dto
 {
     public record LoginRequest (
-        string? Name,
+        string? Email,
         string? Password);
 }

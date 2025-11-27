@@ -1,5 +1,7 @@
-﻿using Ecommerce.Core.Dto;
+﻿using AutoMapper;
+using Ecommerce.Core.Dto;
 using Ecommerce.Core.Entities;
+using Ecommerce.Core.Mapper;
 using Ecommerce.Core.RepositoriesContract;
 using Ecommerce.Core.ServicesContract;
 using System;
@@ -12,24 +14,25 @@ namespace Ecommerce.Core.Services
     internal class UserService : IUserService
     {
         private readonly IUserRepository userRepository;
+        private readonly IMapper _mapper;
 
-        public UserService(IUserRepository userRepository)
+
+        public UserService(IUserRepository userRepository, IMapper mapper)
         {
             this.userRepository = userRepository;
+            this._mapper = mapper;
+
         }
         public async Task<AuthenticationResponse?> Login(LoginRequest loginRequest)
         {
             User? user = await userRepository.GetUserByEmailAndPassword(loginRequest.Email, loginRequest.Password);
             if (user is null)
                 return null;
-            return new AuthenticationResponse(
-                 user.Id,
-                 user.Name,
-               loginRequest.Email,
-                  user.Gender,
-                "this is a token",
-                  true
-                );
+            return _mapper.Map<AuthenticationResponse>(user) with
+            {
+                Token = " token",
+                sucess = true
+            };
         }
 
         public async Task<AuthenticationResponse?> Register(RegisterRequest registerRequest)
@@ -41,14 +44,11 @@ namespace Ecommerce.Core.Services
                 Password = registerRequest.Password,
             });
             if(user is null) return null;
-            return new AuthenticationResponse( 
-                user.Id,
-                registerRequest.Name,
-                registerRequest.Email,
-               registerRequest.Gender.ToString(),
-                "token",
-                 true
-            );
+            return _mapper.Map<AuthenticationResponse>(user) with
+            {
+                Token = " token",
+                sucess = true
+            };
         }
     }
 }

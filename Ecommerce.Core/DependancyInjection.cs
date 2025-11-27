@@ -12,6 +12,7 @@ namespace Ecommerce.Core
         public static IServiceCollection AddCore(this IServiceCollection services) {
 
             services.AddScoped<IUserService, UserService>();
+
             return services;
         }
     }

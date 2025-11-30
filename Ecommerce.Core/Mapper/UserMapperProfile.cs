@@ -12,7 +12,7 @@ namespace Ecommerce.Core.Mapper
         public UserMapperProfile()
         {
             CreateMap<User, AuthenticationResponse>()
-                .ForMember(des => des.UserId, op => op.MapFrom(src => src.Id))
+                .ForMember(des => des.UserId, op => op.MapFrom(src => src.UserId))
                 .ForMember(des => des.Token, op => op.Ignore())
                 .ForMember(des => des.sucess, op => op.Ignore()).ReverseMap();
         }

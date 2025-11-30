@@ -20,11 +20,11 @@ namespace ECommerce.Infrastructure.Repositorues
 
         public async Task<User?> AddNewUser(User user)
         {
-            user.Id = Guid.NewGuid();
+            user.UserId = Guid.NewGuid();
 
-            string query = "INSRT INTO public.\"Users\" (\"UserId\", \"Name\",\"Email\", \"Password\", \"Gender\") VALUES (@Id, @Name, @Email,@Password, @Gender) ";
+            string query = "INSERT INTO public.\"Users\" (\"UserId\", \"Name\",\"Email\", \"Password\", \"Gender\") VALUES (@Id, @Name, @Email,@Password, @Gender) ";
 
-            var rowAffect = await _dbContext.DbConnection.ExecuteAsync(query);
+            var rowAffect = await _dbContext.DbConnection.ExecuteAsync(query, user);
             if(rowAffect > 0)
                 return user;
             return null;
@@ -32,14 +32,12 @@ namespace ECommerce.Infrastructure.Repositorues
 
         public async Task<User?> GetUserByEmailAndPassword(string? email, string? password)
         {
-            return new User
-            {
-                Email = email,
-                Password = password,
-                Id = Guid.NewGuid(),
-                Gender = GenderOptions.Male.ToString(),
-                Name = "Ahmed"
-            };
+
+            string query = "SELECT * FROM public.\"Users\" WHERE \"Email\" = @Email AND \"Password\" = @Password";
+            
+            User? user=  await _dbContext.DbConnection.QueryFirstOrDefaultAsync<User>(query, new { Email = email, Password = password});
+            return user;
+           
         }
     }
 }

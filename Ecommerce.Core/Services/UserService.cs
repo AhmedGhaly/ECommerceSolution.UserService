@@ -42,6 +42,7 @@ namespace Ecommerce.Core.Services
                 Name = registerRequest.Name,
                 Email = registerRequest.Email,
                 Password = registerRequest.Password,
+                Gender = registerRequest.Gender.ToString()
             });
             if(user is null) return null;
             return _mapper.Map<AuthenticationResponse>(user) with

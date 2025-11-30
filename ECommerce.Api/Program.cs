@@ -2,6 +2,7 @@ using Ecommerce.Core;
 using Ecommerce.Core.Mapper;
 using ECommerce.Api.Middlewares;
 using ECommerce.Infrastructure;
+using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Text.Json.Serialization;
 
@@ -23,6 +24,9 @@ namespace ECommerce.Api
 
             builder.Services.AddControllers().AddJsonOptions(op => op.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
             builder.Services.AddAutoMapper(cfg => { }, typeof(UserMapperProfile).Assembly);
+
+            builder.Services.AddFluentValidationAutoValidation();
+
 
             var app = builder.Build();
             app.UseExceptionHandlingMiddleware();

@@ -15,6 +15,7 @@ namespace Ecommerce.Core.Validators
             RuleFor(x => x.Password).NotEmpty().WithMessage("Password is required");
             RuleFor(x => x.Name).NotEmpty().WithMessage("name is required")
                 .MinimumLength(3).MaximumLength(50).WithMessage("name must be greate that 3 and less that 50");
+            RuleFor(x => x.Gender).IsInEnum();
         }
     }
 }

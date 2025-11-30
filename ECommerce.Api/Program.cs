@@ -3,6 +3,7 @@ using Ecommerce.Core.Mapper;
 using ECommerce.Api.Middlewares;
 using ECommerce.Infrastructure;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using System.Text.Json.Serialization;
 
@@ -27,9 +28,19 @@ namespace ECommerce.Api
 
             builder.Services.AddFluentValidationAutoValidation();
 
+            //builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddOpenApiDocument(config => { config.Title = "Ecommerce.Api"; config.Description = "this api created By Ahmed Ghaly"; });
+
+            //builder.Services.AddSwaggerGen();
+
+
 
             var app = builder.Build();
             app.UseExceptionHandlingMiddleware();
+
+            app.UseOpenApi();
+            //app.UseSwagger();
+            app.UseSwaggerUI();
 
 
             app.UseRouting();

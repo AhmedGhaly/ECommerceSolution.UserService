@@ -1,5 +1,7 @@
 ﻿using Ecommerce.Core.Services;
 using Ecommerce.Core.ServicesContract;
+using Ecommerce.Core.Validators;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -12,6 +14,8 @@ namespace Ecommerce.Core
         public static IServiceCollection AddCore(this IServiceCollection services) {
 
             services.AddScoped<IUserService, UserService>();
+
+            services.AddValidatorsFromAssemblyContaining<LogInRequestValidator>();
 
             return services;
         }
